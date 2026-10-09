@@ -311,4 +311,9 @@ function main(): void {
   })
 }
 
+// Why: ELECTRON_NO_ASAR is ignored when process.type is browser/renderer; this child must not cache workspace .asar files (#10063).
+if (process.env.ELECTRON_RUN_AS_NODE === '1') {
+  ;(process as NodeJS.Process & { noAsar?: boolean }).noAsar = true
+}
+
 main()

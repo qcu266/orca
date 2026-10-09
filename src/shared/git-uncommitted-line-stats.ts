@@ -1,4 +1,4 @@
-import { lstat } from 'node:fs/promises'
+import { lstatWorkspaceDisk as lstat } from './workspace-disk-fs'
 import * as path from 'node:path'
 import { isBinaryBuffer } from './binary-buffer'
 import { decodeGitCQuotedPath } from './git-cquoted-path'

@@ -1,5 +1,5 @@
-import { closeSync, fstatSync, openSync, readSync, type Stats } from 'node:fs'
-import { open } from 'node:fs/promises'
+import { closeSync, fstatSync, readSync, type Stats } from 'node:fs'
+import { openSyncWorkspaceDisk, openWorkspaceDisk } from './workspace-disk-fs'
 
 const MIN_GROWTH_BYTES = 64 * 1024
 
@@ -37,7 +37,7 @@ export async function readNodeFileWithinLimit(
     throw new RangeError('File read limit must be a non-negative safe integer')
   }
 
-  const handle = await open(filePath, 'r')
+  const handle = await openWorkspaceDisk(filePath, 'r')
   try {
     const stats = await handle.stat()
     validateSize(stats.size, maxBytes)
@@ -86,7 +86,7 @@ export function readNodeFileSyncWithinLimit(
     throw new RangeError('File read limit must be a non-negative safe integer')
   }
 
-  const descriptor = openSync(filePath, 'r')
+  const descriptor = openSyncWorkspaceDisk(filePath, 'r')
   try {
     const stats = fstatSync(descriptor)
     validateSize(stats.size, maxBytes)

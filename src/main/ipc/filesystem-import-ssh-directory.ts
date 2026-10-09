@@ -1,4 +1,8 @@
-import { lstat, opendir, realpath } from 'node:fs/promises'
+import { opendir } from 'node:fs/promises'
+import {
+  lstatWorkspaceDisk as lstat,
+  realpathWorkspaceDisk as realpath
+} from '../../shared/workspace-disk-fs'
 import { isAbsolute, join, relative, sep } from 'node:path'
 import type { FileUploadSession, IFilesystemProvider } from '../providers/types'
 import { assertSafeRemotePathSegment, type RemotePathFlavor } from '../ssh/ssh-remote-platform'

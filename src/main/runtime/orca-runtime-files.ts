@@ -3,20 +3,14 @@ import type { ChildProcess } from 'node:child_process'
 import { randomUUID } from 'node:crypto'
 import { watch as watchFs, type Dirent } from 'node:fs'
 import type { FileHandle } from 'node:fs/promises'
+import { chmod, constants, mkdir, opendir, rename, rm, writeFile } from 'node:fs/promises'
 import {
-  chmod,
-  constants,
-  copyFile,
-  lstat,
-  mkdir,
-  open,
-  opendir,
-  rename,
-  realpath,
-  rm,
-  stat,
-  writeFile
-} from 'node:fs/promises'
+  copyFileWorkspaceDisk as copyFile,
+  lstatWorkspaceDisk as lstat,
+  openWorkspaceDisk as open,
+  realpathWorkspaceDisk as realpath,
+  statWorkspaceDisk as stat
+} from '../../shared/workspace-disk-fs'
 import { homedir, tmpdir } from 'node:os'
 import { basename, dirname, extname, join } from 'node:path'
 import type {

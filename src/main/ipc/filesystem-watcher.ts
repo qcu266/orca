@@ -1,7 +1,7 @@
 /* eslint-disable max-lines -- Why: one module keeps native (@parcel/watcher), WSL-snapshot, and SSH watcher lifecycle invariants and shared debounce/coalesce helpers auditable in one file. */
 import { ipcMain, type WebContents } from 'electron'
 import * as path from 'node:path'
-import { stat } from 'node:fs/promises'
+import { statWorkspaceDisk as stat } from '../../shared/workspace-disk-fs'
 import type { Event as WatcherEvent } from '@parcel/watcher'
 import type { FsChangeEvent, FsChangedPayload } from '../../shared/types'
 import {

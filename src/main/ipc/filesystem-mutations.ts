@@ -2,18 +2,13 @@
 authorization, SSH routing, and external import behavior remain audited together. */
 import { ipcMain } from 'electron'
 import { constants } from 'node:fs'
+import { mkdir, opendir, rename, rm, unlink, writeFile } from 'node:fs/promises'
 import {
-  copyFile,
-  lstat,
-  mkdir,
-  open,
-  opendir,
-  realpath,
-  rename,
-  rm,
-  unlink,
-  writeFile
-} from 'node:fs/promises'
+  copyFileWorkspaceDisk as copyFile,
+  lstatWorkspaceDisk as lstat,
+  openWorkspaceDisk as open,
+  realpathWorkspaceDisk as realpath
+} from '../../shared/workspace-disk-fs'
 import { basename, dirname, isAbsolute, join, relative, resolve, sep } from 'node:path'
 import { pipeline } from 'node:stream/promises'
 import type { Store } from '../persistence'
