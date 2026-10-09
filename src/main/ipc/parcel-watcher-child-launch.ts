@@ -34,6 +34,8 @@ export function launchWatcherChild(
       env: {
         ...process.env,
         ELECTRON_RUN_AS_NODE: '1',
+        // Why: the child stats workspace paths; Electron would otherwise cache foreign .asar handles (#10063).
+        ELECTRON_NO_ASAR: '1',
         ...(canaryDir ? { ORCA_WATCHER_CANARY_DIR: canaryDir } : {})
       },
       ...(process.platform === 'win32' ? { windowsHide: true } : {})

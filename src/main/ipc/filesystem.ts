@@ -1,6 +1,11 @@
 /* eslint-disable max-lines */
 import { BrowserWindow, dialog, ipcMain, shell } from 'electron'
-import { writeFile, stat, lstat, open, rename, rm } from 'node:fs/promises'
+import { writeFile, rename, rm } from 'node:fs/promises'
+import {
+  lstatWorkspaceDisk as lstat,
+  openWorkspaceDisk as open,
+  statWorkspaceDisk as stat
+} from '../../shared/workspace-disk-fs'
 import type { FileHandle } from 'node:fs/promises'
 import { randomUUID } from 'node:crypto'
 import { dirname, extname, join, resolve } from 'node:path'

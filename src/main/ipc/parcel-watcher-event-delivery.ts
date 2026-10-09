@@ -1,4 +1,4 @@
-import { stat } from 'node:fs/promises'
+import { statWorkspaceDisk as stat } from '../../shared/workspace-disk-fs'
 import type { Event as ParcelWatcherEvent } from '@parcel/watcher'
 import { MAX_BATCHED_WATCHER_EVENTS } from './filesystem-watcher-event-batch'
 import type {

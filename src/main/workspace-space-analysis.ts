@@ -1,10 +1,11 @@
 /* eslint-disable max-lines -- Why: this module keeps local and SSH directory-walk
    semantics paired so reclaimable-byte, symlink, and partial-failure behavior cannot drift. */
-import { lstat, opendir } from 'node:fs/promises'
 import { execFile } from 'node:child_process'
+import type { Dirent } from 'node:fs'
+import { opendir } from 'node:fs/promises'
 import { posix, win32 } from 'node:path'
 import { platform } from 'node:process'
-import type { Dirent } from 'node:fs'
+import { lstatWorkspaceDisk as lstat } from '../shared/workspace-disk-fs'
 import type { Store } from './persistence'
 import { isFolderRepo } from '../shared/repo-kind'
 import type { DirEntry, GitWorktreeInfo, Repo, Worktree } from '../shared/types'

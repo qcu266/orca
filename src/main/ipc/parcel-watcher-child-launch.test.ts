@@ -52,6 +52,13 @@ describe('launchWatcherChild', () => {
     expect(forkMock).not.toHaveBeenCalled()
   })
 
+  it('forks the watcher child with Electron asar support disabled', () => {
+    expect(launchWatcherChild('/watcher.js', null, vi.fn(), vi.fn())).not.toBeNull()
+    const env = forkMock.mock.calls[0]?.[2]?.env as NodeJS.ProcessEnv
+    expect(env.ELECTRON_RUN_AS_NODE).toBe('1')
+    expect(env.ELECTRON_NO_ASAR).toBe('1')
+  })
+
   it('creates the fault-harness pid file without clobbering an existing path', () => {
     expect(launchWatcherChild('/watcher.js', null, vi.fn(), vi.fn())).not.toBeNull()
     expect(writeFileSyncMock).toHaveBeenCalledWith('/tmp/orca-watcher.pid', '1234', {

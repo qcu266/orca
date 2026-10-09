@@ -1,4 +1,4 @@
-import { lstat } from 'node:fs/promises'
+import { lstatWorkspaceDisk as lstat } from '../../shared/workspace-disk-fs'
 import { basename, posix, resolve } from 'node:path'
 import { authorizeExternalPath, isENOENT } from './filesystem-auth'
 import { getSshConnectionManager } from './ssh'

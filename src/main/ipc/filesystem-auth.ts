@@ -1,7 +1,9 @@
 /* eslint-disable max-lines -- Why: keeps the filesystem-auth security boundary auditable end to end. */
 import { resolve, relative, dirname, basename, isAbsolute, sep } from 'node:path'
-import { realpathSync } from 'node:fs'
-import { realpath } from 'node:fs/promises'
+import {
+  realpathSyncWorkspaceDisk as realpathSync,
+  realpathWorkspaceDisk as realpath
+} from '../../shared/workspace-disk-fs'
 import type { Store } from '../persistence'
 import { isRepoRoot, listRepoWorktrees } from '../repo-worktrees'
 import { computeWorkspaceRoot, getWorktreePathSettings } from './worktree-logic'
