@@ -54,3 +54,11 @@ Source-control and review changes must consider GitLab and other supported git p
 Be mindful of the user's `gh` CLI API rate limit — batch requests where possible and avoid unnecessary calls. All code, commands, and scripts must be compatible with macOS, Linux, and Windows.
 
 ## Type Declarations: Prefer `.ts` Over `.d.ts`
+
+## Cursor Cloud specific instructions
+
+- `package.json` requires Node 24. Cloud Agent images also put Node 22 at `/exec-daemon/node`, which is earlier on `PATH` than `/usr/local/bin`. Setup installs Node 24.21.0 under `/opt/node-v24` and symlinks `node`, `npm`, `npx`, `pnpm`, and `node-gyp` into `/usr/local/cargo/bin` so shells resolve Node 24. Rebuilding native modules with Node 22 breaks `node-pty`.
+- Linux `pnpm install` must set `npm_config_node_gyp` to global `node-gyp@11.5.0`. pnpm's bundled `gyp_main.py` is not executable, so `node-pty`'s postinstall fails without the override. Use `pnpm install --no-frozen-lockfile --prefer-frozen-lockfile=false`, then confirm `package.json` and `pnpm-lock.yaml` did not change.
+- These VMs have no `/dev/dri`. `pnpm dev` needs `ELECTRON_EXEC_PATH` pointed at a wrapper that launches Electron with `--disable-gpu --enable-unsafe-swiftshader --use-gl=angle --use-angle=swiftshader`, and `DISPLAY=:1` when the desktop socket exists. The environment start script does this and then runs `pnpm dev`.
+- Contributor checks: `pnpm exec oxlint`, `pnpm typecheck`, `pnpm test`. `pnpm verify:skill-bundle-manifest` also needs the repo's release tags; a clone with no tags fails that check until tags are fetched.
+
